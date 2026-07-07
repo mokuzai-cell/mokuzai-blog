@@ -1,10 +1,27 @@
 ---
 import { useLink } from "../utils/link"
+function getOtherLanguages(){
+    const paths=Astro.url.pathname.split("/");
+    let afterpath=paths[paths.length-2];
+    let langpath=paths[paths.length-3];
+    let beforepath=(langpath=="en")?paths.filter((_,idx)=>idx<paths.length-3).join("/"):paths.filter((_,idx)=>idx<paths.length-2).join("/")
+    return [
+        ["japanese",beforepath+"/"+afterpath+"/"],
+        ["english",beforepath+"/en/"+afterpath+"/"]
+    ];
+}
+interface Props{
+    isI18n?: boolean;
+}
+const {isI18n}=Astro.props;
 ---
 <header class="header">
     <a class="logo" href={useLink("")}>
-        <p>Mokusei Blog</p>
+        <p>Blog</p>
     </a>
+    <div class="lang">
+        {isI18n && getOtherLanguages().map(obj=>(<a href={obj[1]}>{obj[0]}</a>))}
+    </div>  
 </header>
 <style lang="scss">
     .header{
@@ -18,6 +35,7 @@ import { useLink } from "../utils/link"
         display:flex;
         align-items:center;
         padding:0 16px;
+        justify-content:space-between;
     }
     .logo{
         display:block;
@@ -25,5 +43,13 @@ import { useLink } from "../utils/link"
         font-size:24px;
         color:inherit;
         text-decoration: inherit;
+    }
+    .lang{
+        display:flex;
+        flex-direction: column;
+        margin-right:40px;
+    }
+    .lang>a{
+        color:white;
     }
 </style>

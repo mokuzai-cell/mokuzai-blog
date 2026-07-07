@@ -1,0 +1,69 @@
+.markdown{
+    & li.task-list-item{
+        color:red;
+        margin-left:0px;
+        padding-left:0px;
+    }
+blockquote {
+  margin: 1.5rem 0;
+  padding: 0.8rem 1.2rem;
+  background-color: #f8fafc; /* 薄いグレー（ダークモードなら調整してください） */
+  border-left: 4px solid #3b82f6; /* 左側の縦線の色（青） */
+  color: #475569; /* 文字色を少し柔らかい黒に */
+  font-style: italic; /* 文字を少し斜体に（お好みで消してもOK） */
+  border-radius: 0 8px 8px 0; /* 右側の角を丸く */
+}
+
+/* 引用の中の段落の余白をリセット */
+blockquote p {
+  margin: 0;
+  line-height: 1.6;
+}
+/* 1. チェックボックスを含んでいるリスト（li）の、デフォルトの黒丸（•）を消す */
+li:has(input[type="checkbox"]) {
+  list-style-type: none; /* 黒丸を消去 */
+  padding-left: 0;       /* 左の余白をリセット */
+  margin-left: -1rem;    /* 必要に応じて位置を少し左に調整（デザインに合わせて調整してください） */
+  display: flex;
+  align-items: center;   /* チェックボックスと文字の縦中央を揃える */
+  gap: 0.5rem;           /* ボックスと文字の間の隙間 */
+}
+
+/* 2. チェックボックス自体の見た目を少しモダンにする */
+li input[type="checkbox"] {
+  appearance: none; /* ブラウザ標準のダサい見た目をリセット */
+  -webkit-appearance: none;
+  width: 1.15rem;
+  height: 1.15rem;
+  border: 2px solid #cbd5e1; /* 枠線の色（薄いグレー） */
+  border-radius: 4px;        /* 角を少し丸く */
+  display: inline-grid;
+  place-content: center;
+  cursor: pointer;
+  background-color: #fff;
+  transition: all 0.2s ease;
+}
+
+/* 3. [x]（完了）になったときのスタイル */
+li input[type="checkbox"]:checked {
+  background-color: #3b82f6; /* チェック時の背景（青） */
+  border-color: #3b82f6;
+}
+
+/* 4. [x]（完了）のときの中身のチェックマーク（レ点）を作る */
+li input[type="checkbox"]:checked::before {
+  content: "";
+  width: 0.35rem;
+  height: 0.6rem;
+  border: solid white;
+  border-width: 0 2px 2px 0; /* L字型の線を作る */
+  transform: rotate(45deg);  /* 45度回転させてチェックマークにする */
+  margin-top: -2px;
+}
+
+/* 5. お好みで：完了したタスクの文字を薄くして、打ち消し線を入れる */
+li:has(input[type="checkbox"]:checked) {
+  color: #94a3b8; /* 文字をグレーに */
+  text-decoration: line-through; /* 打ち消し線 */
+}
+}

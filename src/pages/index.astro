@@ -6,6 +6,7 @@ import { useLink } from '../utils/link';
 const baseURL="/posts/";
 
 const allPosts = await getCollection("blog");
+
 function dateToStr(date:Date){
 	let y=date.getFullYear();
 	let m=date.getMonth()+1;
@@ -17,12 +18,12 @@ function dateToStr(date:Date){
 <Layout>
 	<div class="main">
 	<div class="hero">
-		<h1>Mokusei Blog</h1>
+		<h1>blog</h1>
 		<hr>
 	</div>
 	<div class="posts">
 		<h2 class="subtitle">Blog</h2>
-		{allPosts.map(value=>(<a href={useLink(baseURL+value.id)} class="post">
+		{allPosts.filter(obj=>!obj.id.includes("/")).map(value=>(<a href={useLink(baseURL+value.id)} class="post">
 			<p class="post__date">{dateToStr(value.data.created)}</p>
 			<h3 class="post__title">{value.data.title}</h3>
 			<p class="post__description">{value.data.description}</p>
